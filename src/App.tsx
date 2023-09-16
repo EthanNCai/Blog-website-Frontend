@@ -1,20 +1,21 @@
 import React from 'react';
 
 import SearchAppBar from './component/SearchAppBar';
-import { AppBar, CssBaseline, Toolbar, Typography } from '@mui/material';
+import { AppBar, Container, CssBaseline, Toolbar, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { purple,green,blue} from '@mui/material/colors';
+import { purple,green,blue, grey} from '@mui/material/colors';
 import { createGlobalStyle } from 'styled-components';
+import IntroCard from './component/IntroCard';
 
 //Theme control
 const theme = createTheme({
   palette: {
     primary: {
-      main: blue[400],
+      main: grey[100],
     },
     secondary: {
-      main: blue[400],
+      main: green[200],
     },
   },
 });
@@ -27,6 +28,9 @@ function App() {
       <CssBaseline/>
       <ThemeProvider theme={theme}>
       <SearchAppBar/>
+
+        <IntroCard />
+
       </ThemeProvider>
       
     </>
