@@ -5,6 +5,7 @@ import {
   AppBar,
   Container,
   CssBaseline,
+  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -14,6 +15,7 @@ import { purple, green, blue, grey } from "@mui/material/colors";
 import { createGlobalStyle } from "styled-components";
 import IntroCard from "./component/IntroCard";
 
+import IntroBar from "./component/IntroBar";
 //Theme control
 const theme = createTheme({
   palette: {
@@ -32,7 +34,8 @@ function App() {
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <SearchAppBar />
-        <Container>
+        <Container sx={{ padding: "10px" }}>
+          <IntroBar />
           <IntroCard />
         </Container>
       </ThemeProvider>
