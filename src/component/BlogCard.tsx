@@ -102,6 +102,7 @@ export default function BlogCard() {
                 size="small"
                 style={{ marginInline: "5px" }}
               />
+
               <Chip
                 onClick={() => {
                   setEX((isEx) => !isEx);
@@ -112,9 +113,6 @@ export default function BlogCard() {
                 size="small"
                 style={{ marginInline: "5px" }}
               />
-              <Link to="/testPage?bid=0344" target="_blank">
-                testPage
-              </Link>
             </Box>
           </Stack>
         </Stack>
@@ -142,16 +140,26 @@ export default function BlogCard() {
             }}
             label="Expand"
             color={"warning"}
-            style={{ marginTop: "5px", marginInline: "5px" }}
-          />
-          <Chip
-            onClick={() => {
-              setEX((isEx) => !isEx);
+            style={{
+              marginTop: "5px",
+              marginInline: "5px",
+              fontFamily: "JBFont",
             }}
-            label="Read"
-            color={"success"}
-            style={{ marginTop: "5px", marginInline: "5px" }}
           />
+          <a href="/testPage?bid=ajwidwad" target="_blank">
+            <Chip
+              onClick={() => {
+                setEX((isEx) => !isEx);
+              }}
+              label="Read"
+              color={"success"}
+              style={{
+                marginTop: "5px",
+                marginInline: "5px",
+                fontFamily: "JBFont",
+              }}
+            />
+          </a>
         </Box>
       </Stack>
     </Paper>

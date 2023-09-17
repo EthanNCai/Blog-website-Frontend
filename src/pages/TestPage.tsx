@@ -11,7 +11,6 @@ export default function TestPage() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Lambo</title>
-        <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <Box
         sx={{
