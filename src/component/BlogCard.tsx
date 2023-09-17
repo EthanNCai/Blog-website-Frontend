@@ -6,6 +6,8 @@ import { Stack, Toolbar, Typography, Chip, Avatar } from "@mui/material";
 import { Padding, ThumbDown, ThumbUp, Visibility } from "@mui/icons-material";
 import Fade from "@mui/material/Fade";
 import Grow from "@mui/material/Grow";
+import { Link } from "react-router-dom";
+
 export default function BlogCard() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const [isEx, setEX] = React.useState(false);
@@ -110,6 +112,9 @@ export default function BlogCard() {
                 size="small"
                 style={{ marginInline: "5px" }}
               />
+              <Link to="/testPage?bid=0344" target="_blank">
+                testPage
+              </Link>
             </Box>
           </Stack>
         </Stack>
