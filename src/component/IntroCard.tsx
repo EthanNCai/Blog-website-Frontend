@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
 import BlogCard from "./BlogCard";
+import { Pagination, Stack } from "@mui/material";
+import { CSSTransition } from "react-transition-group";
 export default function IntroCard() {
   return (
     <Box
@@ -17,6 +19,20 @@ export default function IntroCard() {
       <BlogCard />
       <BlogCard />
       <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <Stack
+        direction={"row"}
+        justifyContent={"center"}
+        padding={"30px"}
+        width={"100%"}>
+        <Pagination count={10} />
+      </Stack>
     </Box>
   );
 }

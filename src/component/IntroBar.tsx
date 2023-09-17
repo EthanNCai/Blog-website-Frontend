@@ -61,19 +61,9 @@ export default function IntroBar() {
                   minWidth: 0,
                 },
               }}>
-              <Chip label="GitHub" variant="outlined" size="small" />
-              <Chip
-                label="Reddit"
-                variant="outlined"
-                size="small"
-                color="warning"
-              />
-              <Chip
-                label="Steam"
-                variant="outlined"
-                size="small"
-                color="warning"
-              />
+              <Chip label="GitHub" size="small" color="error" />
+              <Chip label="Reddit" variant="outlined" size="small" />
+              <Chip label="Steam" variant="outlined" size="small" />
               <Chip label="WeChat Pay" variant="outlined" size="small" />
             </Box>
           </Stack>

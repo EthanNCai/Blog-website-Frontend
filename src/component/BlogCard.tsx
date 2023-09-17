@@ -1,20 +1,14 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import { CSSTransition } from "react-transition-group";
 import { Stack, Toolbar, Typography, Chip, Avatar } from "@mui/material";
 import { Padding, ThumbDown, ThumbUp, Visibility } from "@mui/icons-material";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import Fade from "@mui/material/Fade";
+import Grow from "@mui/material/Grow";
 export default function BlogCard() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
-
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  const [isEx, setEX] = React.useState(false);
 
   return (
     <Paper elevation={4} sx={{ maxWidth: "95%", overflow: "auto" }}>
@@ -55,6 +49,27 @@ export default function BlogCard() {
               }}>
               'convLSTM Horizon self driving v1.0'
             </Typography>
+            <Box sx={{ display: "flex" }}>
+              <Grow
+                in={isEx}
+                style={{ transformOrigin: "0 0 0" }}
+                {...(isEx ? { timeout: 1000 } : {})}>
+                <Typography
+                  sx={{
+                    flexGrow: 1,
+                    padding: "15px",
+                    color: "gray",
+                    fontFamily: "JBFont",
+                    whiteSpace: "normal",
+                    wordBreak: "break-all",
+                  }}
+                  variant="body2">
+                  {isEx
+                    ? "'This is a project that use a convLSTm to control a virtual car in horizon four to drive like a human, quite interesting'"
+                    : null}
+                </Typography>
+              </Grow>
+            </Box>
             <Box
               paddingLeft={"15px"}
               display={{ sm: "block", xs: "none" }}
@@ -86,6 +101,9 @@ export default function BlogCard() {
                 style={{ marginInline: "5px" }}
               />
               <Chip
+                onClick={() => {
+                  setEX((isEx) => !isEx);
+                }}
                 icon={<ThumbUp />}
                 label="4"
                 color={"error"}
@@ -105,12 +123,6 @@ export default function BlogCard() {
             size="small"
             style={{ marginTop: "5px", marginInline: "5px" }}
           />
-          <Chip
-            label="programming"
-            color="secondary"
-            size="small"
-            style={{ marginTop: "5px", marginInline: "5px" }}
-          />
 
           <Chip
             icon={<Visibility />}
@@ -120,17 +132,19 @@ export default function BlogCard() {
             style={{ marginTop: "5px", marginInline: "5px" }}
           />
           <Chip
-            icon={<ThumbDown />}
-            label="1"
-            color="secondary"
-            size="small"
+            onClick={() => {
+              setEX((isEx) => !isEx);
+            }}
+            label="Expand"
+            color={"warning"}
             style={{ marginTop: "5px", marginInline: "5px" }}
           />
           <Chip
-            icon={<ThumbUp />}
-            label="4"
-            color={"error"}
-            size="small"
+            onClick={() => {
+              setEX((isEx) => !isEx);
+            }}
+            label="Read"
+            color={"success"}
             style={{ marginTop: "5px", marginInline: "5px" }}
           />
         </Box>
