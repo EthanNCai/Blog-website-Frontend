@@ -17,7 +17,8 @@ export default function BlogCard() {
       <Stack direction={"column"} sx={{ justifyContent: "in-between" }}>
         <Stack
           sx={{ padding: "10px", justifyContent: "in-between" }}
-          direction={"row"}>
+          direction={"row"}
+          alignContent={"center"}>
           <div style={{ maxWidth: "70%" }}>
             <Box
               sx={{
@@ -39,7 +40,7 @@ export default function BlogCard() {
               />
             </Box>
           </div>
-          <Stack>
+          <Stack alignContent={"center"}>
             <Typography
               sx={{
                 flexGrow: 1,
@@ -77,42 +78,45 @@ export default function BlogCard() {
               display={{ sm: "block", xs: "none" }}
               flexWrap="wrap">
               <Chip
-                label="20.7.4"
-                color="secondary"
-                size="small"
-                style={{ marginInline: "5px" }}
-              />
-              <Chip
-                label="programming"
-                color="secondary"
-                size="small"
-                style={{ marginInline: "5px" }}
-              />
-              <Chip
                 icon={<Visibility />}
                 label="43"
                 color="secondary"
                 size="small"
                 style={{ marginInline: "5px" }}
               />
+
               <Chip
-                icon={<ThumbDown />}
-                label="1"
-                color="secondary"
+                icon={<ThumbUp />}
+                label="4"
                 size="small"
                 style={{ marginInline: "5px" }}
               />
-
               <Chip
                 onClick={() => {
                   setEX((isEx) => !isEx);
                 }}
-                icon={<ThumbUp />}
-                label="4"
-                color={"error"}
-                size="small"
-                style={{ marginInline: "5px" }}
+                label={isEx ? "Close" : "Expand"}
+                color={"warning"}
+                style={{
+                  marginTop: "5px",
+                  marginInline: "5px",
+                  fontFamily: "JBFont",
+                }}
               />
+              <a href="/testPage?bid=ajwidwad" target="_blank">
+                <Chip
+                  onClick={() => {
+                    setEX((isEx) => !isEx);
+                  }}
+                  label="Read"
+                  color={"success"}
+                  style={{
+                    marginTop: "5px",
+                    marginInline: "5px",
+                    fontFamily: "JBFont",
+                  }}
+                />
+              </a>
             </Box>
           </Stack>
         </Stack>

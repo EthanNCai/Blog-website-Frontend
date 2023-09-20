@@ -8,13 +8,20 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button, colors, ButtonGroup, Paper } from "@mui/material";
+import { Button, colors, ButtonGroup, Paper, Chip } from "@mui/material";
+import { House } from "@mui/icons-material";
 
 export default function SearchAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary">
         <Toolbar>
+          <Chip
+            label="back to"
+            onClick={() => {}}
+            sx={{ fontFamily: "JBFont" }}
+          />
+
           <Typography
             variant="h6"
             noWrap
@@ -28,7 +35,7 @@ export default function SearchAppBar() {
               wordBreak: "break-all",
               padding: "15px",
             }}>
-            'chicken yard blog'
+            Chicken st.
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <ButtonGroup variant="outlined">

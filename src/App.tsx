@@ -33,8 +33,17 @@ function App() {
     <>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <SearchAppBar />
-        <Container sx={{ padding: "10px" }}>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 9999,
+          }}>
+          <SearchAppBar />
+        </div>
+        <Container maxWidth="lg" sx={{ padding: "10px", marginTop: "100px" }}>
           <IntroBar />
           <IntroCard />
         </Container>
