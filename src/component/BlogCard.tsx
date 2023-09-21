@@ -7,8 +7,9 @@ import { Padding, ThumbDown, ThumbUp, Visibility } from "@mui/icons-material";
 import Fade from "@mui/material/Fade";
 import Grow from "@mui/material/Grow";
 import { Link } from "react-router-dom";
+import { BlogProps } from "../objs/blogProps";
 
-export default function BlogCard() {
+export default function BlogCard(blogProps: BlogProps) {
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const [isEx, setEX] = React.useState(false);
 
