@@ -8,9 +8,9 @@ import Fade from "@mui/material/Fade";
 import Grow from "@mui/material/Grow";
 import { Link } from "react-router-dom";
 import { BlogProps } from "../objs/blogProps";
+import BlogCardInteract from "./BlogCardInteract";
 
 export default function BlogCard(blogProps: BlogProps) {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
   const [isEx, setEX] = React.useState(false);
 
   return (
@@ -74,97 +74,13 @@ export default function BlogCard(blogProps: BlogProps) {
                 </Typography>
               </Grow>
             </Box>
-            <Box
-              paddingLeft={"15px"}
-              display={{ sm: "block", xs: "none" }}
-              flexWrap="wrap">
-              <Chip
-                icon={<Visibility />}
-                label="43"
-                color="secondary"
-                size="small"
-                style={{ marginInline: "5px" }}
-              />
-
-              <Chip
-                icon={<ThumbUp />}
-                label="4"
-                size="small"
-                style={{ marginInline: "5px" }}
-              />
-              <Chip
-                onClick={() => {
-                  setEX((isEx) => !isEx);
-                }}
-                label={isEx ? "Close" : "Expand"}
-                color={"warning"}
-                style={{
-                  marginTop: "5px",
-                  marginInline: "5px",
-                  fontFamily: "JBFont",
-                }}
-              />
-              <a href="/testPage?bid=ajwidwad" target="_blank">
-                <Chip
-                  onClick={() => {
-                    setEX((isEx) => !isEx);
-                  }}
-                  label="Read"
-                  color={"success"}
-                  style={{
-                    marginTop: "5px",
-                    marginInline: "5px",
-                    fontFamily: "JBFont",
-                  }}
-                />
-              </a>
+            <Box display={{ sm: "block", xs: "none" }}>
+              <BlogCardInteract isEX={isEx} setEX={setEX} />
             </Box>
           </Stack>
         </Stack>
-        <Box
-          paddingLeft={"10px"}
-          paddingBottom={"15px"}
-          display={{ sm: "none", xs: "block" }}>
-          <Chip
-            label="20.7.4"
-            color="secondary"
-            size="small"
-            style={{ marginTop: "5px", marginInline: "5px" }}
-          />
-
-          <Chip
-            icon={<Visibility />}
-            label="43"
-            color="secondary"
-            size="small"
-            style={{ marginTop: "5px", marginInline: "5px" }}
-          />
-          <Chip
-            onClick={() => {
-              setEX((isEx) => !isEx);
-            }}
-            label="Expand"
-            color={"warning"}
-            style={{
-              marginTop: "5px",
-              marginInline: "5px",
-              fontFamily: "JBFont",
-            }}
-          />
-          <a href="/testPage?bid=ajwidwad" target="_blank">
-            <Chip
-              onClick={() => {
-                setEX((isEx) => !isEx);
-              }}
-              label="Read"
-              color={"success"}
-              style={{
-                marginTop: "5px",
-                marginInline: "5px",
-                fontFamily: "JBFont",
-              }}
-            />
-          </a>
+        <Box display={{ sm: "none", xs: "block" }}>
+          <BlogCardInteract isEX={isEx} setEX={setEX} />
         </Box>
       </Stack>
     </Paper>

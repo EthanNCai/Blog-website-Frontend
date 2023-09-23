@@ -1,24 +1,34 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { CSSTransition } from "react-transition-group";
-import { Stack, Toolbar, Typography, Chip, Avatar } from "@mui/material";
-import { Padding, ThumbDown, ThumbUp, Visibility } from "@mui/icons-material";
-import Fade from "@mui/material/Fade";
-import Grow from "@mui/material/Grow";
+import { Chip } from "@mui/material";
+import { CalendarMonth, Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-export default function BlogCardInteract() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [isEx, setEX] = React.useState(false);
+interface BlogCardInteractProps {
+  isEX: boolean;
+  setEX: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function BlogCardInteract({
+  isEX,
+  setEX,
+}: BlogCardInteractProps) {
+  const chipStyle = {
+    marginTop: "5px",
+    marginInline: "5px",
+    fontFamily: "JBFont",
+  };
 
   return (
-    <Box paddingLeft={"10px"} paddingBottom={"15px"}>
+    <Box paddingLeft="10px" paddingBottom="15px">
       <Chip
+        icon={<CalendarMonth />}
         label="20.7.4"
         color="secondary"
         size="small"
-        style={{ marginTop: "5px", marginInline: "5px" }}
+        style={chipStyle}
       />
 
       <Chip
@@ -26,32 +36,26 @@ export default function BlogCardInteract() {
         label="43"
         color="secondary"
         size="small"
-        style={{ marginTop: "5px", marginInline: "5px" }}
+        style={chipStyle}
       />
+
       <Chip
         onClick={() => {
           setEX((isEx) => !isEx);
         }}
         label="Expand"
-        color={"warning"}
-        style={{
-          marginTop: "5px",
-          marginInline: "5px",
-          fontFamily: "JBFont",
-        }}
+        color="warning"
+        style={chipStyle}
       />
+
       <a href="/testPage?bid=ajwidwad" target="_blank">
         <Chip
           onClick={() => {
             setEX((isEx) => !isEx);
           }}
           label="Read"
-          color={"success"}
-          style={{
-            marginTop: "5px",
-            marginInline: "5px",
-            fontFamily: "JBFont",
-          }}
+          color="success"
+          style={chipStyle}
         />
       </a>
     </Box>
