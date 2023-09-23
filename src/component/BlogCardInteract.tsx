@@ -9,11 +9,17 @@ import { Link } from "react-router-dom";
 interface BlogCardInteractProps {
   isEX: boolean;
   setEX: React.Dispatch<React.SetStateAction<boolean>>;
+  viewers: string;
+  blogID: string;
+  date: string;
 }
 
 export default function BlogCardInteract({
   isEX,
   setEX,
+  viewers,
+  blogID,
+  date,
 }: BlogCardInteractProps) {
   const chipStyle = {
     marginTop: "5px",
@@ -22,10 +28,10 @@ export default function BlogCardInteract({
   };
 
   return (
-    <Box paddingLeft="10px" paddingBottom="15px">
+    <Box paddingLeft="10px" paddingBottom="10px">
       <Chip
         icon={<CalendarMonth />}
-        label="20.7.4"
+        label={date}
         color="secondary"
         size="small"
         style={chipStyle}
@@ -33,7 +39,7 @@ export default function BlogCardInteract({
 
       <Chip
         icon={<Visibility />}
-        label="43"
+        label={viewers}
         color="secondary"
         size="small"
         style={chipStyle}
@@ -43,20 +49,14 @@ export default function BlogCardInteract({
         onClick={() => {
           setEX((isEx) => !isEx);
         }}
+        size="small"
         label="Expand"
         color="warning"
         style={chipStyle}
       />
 
-      <a href="/testPage?bid=ajwidwad" target="_blank">
-        <Chip
-          onClick={() => {
-            setEX((isEx) => !isEx);
-          }}
-          label="Read"
-          color="success"
-          style={chipStyle}
-        />
+      <a href={`/testPage?bid=${blogID}`} target="_blank">
+        <Chip size="small" label="Read" color="success" style={chipStyle} />
       </a>
     </Box>
   );

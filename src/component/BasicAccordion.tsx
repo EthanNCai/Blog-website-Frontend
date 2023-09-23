@@ -4,6 +4,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { EmojiPeople, Web } from "@mui/icons-material";
+import { Stack } from "@mui/material";
 
 export default function BasicAccordion() {
   return (
@@ -13,13 +15,16 @@ export default function BasicAccordion() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header">
-          <Typography
-            variant="body2"
-            sx={{
-              fontFamily: "JBFont",
-            }}>
-            Webside information
-          </Typography>
+          <Stack direction={"row"} alignContent={"center"} spacing={"7px"}>
+            <Web />
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "JBFont",
+              }}>
+              Site info.
+            </Typography>
+          </Stack>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -33,13 +38,16 @@ export default function BasicAccordion() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
           id="panel2a-header">
-          <Typography
-            variant="body2"
-            sx={{
-              fontFamily: "JBFont",
-            }}>
-            Establisher Infomation
-          </Typography>
+          <Stack direction={"row"} alignContent={"center"} spacing={"7px"}>
+            <EmojiPeople />
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "JBFont",
+              }}>
+              Establisher info.
+            </Typography>
+          </Stack>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

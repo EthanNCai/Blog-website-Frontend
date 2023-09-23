@@ -31,7 +31,7 @@ export default function BlogCard(blogProps: BlogProps) {
                 boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.3)",
               }}>
               <img
-                src={"https://www.w3schools.com/css/img_5terre.jpg"}
+                src={blogProps.avatarUrl}
                 alt="Sample"
                 style={{
                   width: "100%",
@@ -51,7 +51,7 @@ export default function BlogCard(blogProps: BlogProps) {
                 whiteSpace: "normal",
                 wordBreak: "break-all",
               }}>
-              'convLSTM Horizon self driving v1.0'
+              {blogProps.title}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Grow
@@ -61,26 +61,37 @@ export default function BlogCard(blogProps: BlogProps) {
                 <Typography
                   sx={{
                     flexGrow: 1,
-                    padding: "15px",
+                    paddingInline: "15px",
+                    paddingY: "5px",
                     color: "gray",
                     fontFamily: "JBFont",
                     whiteSpace: "normal",
                     wordBreak: "break-all",
                   }}
                   variant="body2">
-                  {isEx
-                    ? "'This is a project that use a convLSTm to control a virtual car in horizon four to drive like a human, quite interesting'"
-                    : null}
+                  {isEx ? blogProps.detail : null}
                 </Typography>
               </Grow>
             </Box>
             <Box display={{ sm: "block", xs: "none" }}>
-              <BlogCardInteract isEX={isEx} setEX={setEX} />
+              <BlogCardInteract
+                isEX={isEx}
+                setEX={setEX}
+                viewers={blogProps.viewer}
+                date={blogProps.date}
+                blogID={blogProps.blogId}
+              />
             </Box>
           </Stack>
         </Stack>
         <Box display={{ sm: "none", xs: "block" }}>
-          <BlogCardInteract isEX={isEx} setEX={setEX} />
+          <BlogCardInteract
+            isEX={isEx}
+            setEX={setEX}
+            viewers={blogProps.viewer}
+            date={blogProps.date}
+            blogID={blogProps.blogId}
+          />
         </Box>
       </Stack>
     </Paper>

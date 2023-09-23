@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import BasicAccordion from "./BasicAccordion";
+import { Email, GitHub, Reddit } from "@mui/icons-material";
 export default function IntroBar() {
   return (
     <div style={{ paddingBottom: "10px" }}>
@@ -28,43 +29,33 @@ export default function IntroBar() {
             direction={"row"}
             justifyContent={"space-between"}
             alignContent={"center"}>
-            <Box padding={"23px"}>
+            <Box padding={"15px"}>
               <Stack direction={"row"}>
                 <Stack direction={"column"} paddingLeft={"30px"}>
                   <Typography
-                    variant="body1"
                     sx={{
                       fontFamily: "JBFont",
                     }}>
-                    Blog browsed: 432
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      fontFamily: "JBFont",
-                    }}>
-                    Site visited: 4201
+                    {"Hello"}
                   </Typography>
                 </Stack>
               </Stack>
             </Box>
 
-            <Box
-              maxWidth={"32%"}
-              padding={"10px"}
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                "& > :not(style)": {
-                  m: 0.1,
-                  flex: "1 0 auto",
-                  minWidth: 0,
-                },
-              }}>
-              <Chip label="GitHub" size="small" color="error" />
-              <Chip label="Reddit" variant="outlined" size="small" />
-              <Chip label="Steam" variant="outlined" size="small" />
-              <Chip label="WeChat Pay" variant="outlined" size="small" />
+            <Box padding={"15px"}>
+              <Stack direction={"row"} alignContent={"center"} spacing={"5px"}>
+                <Typography
+                  variant={"body2"}
+                  sx={{
+                    fontFamily: "JBFont",
+                    whiteSpace: "nowrap",
+                  }}>
+                  Find me:
+                </Typography>
+                <Reddit style={{ color: "red" }} />
+                <GitHub style={{ color: "black" }} />
+                <Email style={{ color: "lightblue" }} />
+              </Stack>
             </Box>
           </Stack>
           <BasicAccordion />
