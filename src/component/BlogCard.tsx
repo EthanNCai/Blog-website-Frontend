@@ -32,7 +32,7 @@ export default function BlogCard(blogProps: BlogProps) {
               }}>
               <img
                 src={blogProps.avatarUrl}
-                alt="Sample"
+                alt="Loading"
                 style={{
                   width: "100%",
                   height: "100%",

@@ -18,7 +18,9 @@ export default function SearchAppBar() {
         <Toolbar>
           <Chip
             label="back to"
-            onClick={() => {}}
+            onClick={() => {
+              window.location.href = "/";
+            }}
             sx={{ fontFamily: "JBFont" }}
           />
 
@@ -35,7 +37,7 @@ export default function SearchAppBar() {
               wordBreak: "break-all",
               padding: "15px",
             }}>
-            Chicken st.
+            Chicken yd.
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <ButtonGroup variant="outlined">

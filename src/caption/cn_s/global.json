@@ -1,0 +1,13 @@
+{
+  "main_page": {
+    "back_to": "回到",
+    "welcome": "你好!",
+    "find_me": "找到我:",
+    "site_info": "网站信息",
+    "establisher_info": "站长信息",
+    "site_info_content": "这是一个用来放我的博客的网站",
+    "establisher_info_content": "我是一个计算机专业的本科学生",
+    "expand": "展开",
+    "read": "阅读"
+  }
+}

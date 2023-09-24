@@ -34,6 +34,22 @@ export default function IntroCard() {
         date={sampleBlogTarget.date}
         viewer={sampleBlogTarget.viewer}
       />
+      <BlogCard
+        blogId={sampleBlogTarget.blogId}
+        avatarUrl={sampleBlogTarget.avatarUrl}
+        title={sampleBlogTarget.title}
+        detail={sampleBlogTarget.detail}
+        date={sampleBlogTarget.date}
+        viewer={sampleBlogTarget.viewer}
+      />
+      <BlogCard
+        blogId={sampleBlogTarget.blogId}
+        avatarUrl={sampleBlogTarget.avatarUrl}
+        title={sampleBlogTarget.title}
+        detail={sampleBlogTarget.detail}
+        date={sampleBlogTarget.date}
+        viewer={sampleBlogTarget.viewer}
+      />
       <Stack
         direction={"row"}
         justifyContent={"center"}
