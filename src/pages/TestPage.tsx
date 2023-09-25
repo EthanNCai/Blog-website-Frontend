@@ -16,6 +16,8 @@ import BasicSpeedDial from "../component/BasicSpeedDail";
 const StyledTable = styled.table`
   border-collapse: collapse;
   width: 100%;
+  table-layout: auto;
+  font-size: 14px; /* 默认字体大小 */
 
   td,
   th {
@@ -26,8 +28,11 @@ const StyledTable = styled.table`
   th {
     background-color: #eeeeee;
   }
-`;
 
+  @media (max-width: 600px) {
+    font-size: 12px; /* 在较小宽度下缩小字体大小 */
+  }
+`;
 const StyledBlockquote = styled.blockquote`
   border-left: 2px solid #ccc;
   padding-left: 16px;

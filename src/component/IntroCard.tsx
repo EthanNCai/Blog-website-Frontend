@@ -6,7 +6,8 @@ import { BlogProps } from "../objs/blogProps";
 export default function IntroCard() {
   const sampleBlogTarget: BlogProps = {
     blogId: "123",
-    avatarUrl: "https://www.w3schools.com/css/img_5terre.jpg",
+    avatarUrl:
+      "https://th.bing.com/th/id/OIP.MJUej5_qU3aCnTy2Jn3PpwHaJD?pid=ImgDet&rs=1",
     title: "'convLSTM Horizon self driving v1.0'",
     detail:
       "'This is a project that use a convLSTm to control a virtual car in horizon four to drive like a human, quite interesting'",
