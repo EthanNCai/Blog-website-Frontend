@@ -24,7 +24,7 @@ export default function IntroBar() {
             minHeight: 80,
           },
         }}>
-        <Paper elevation={12} sx={{ maxWidth: "95%", overflow: "auto" }}>
+        <Paper elevation={5} sx={{ maxWidth: "95%", overflow: "auto" }}>
           <Stack
             direction={"row"}
             justifyContent={"space-between"}

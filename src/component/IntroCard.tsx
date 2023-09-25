@@ -19,12 +19,15 @@ export default function IntroCard() {
       sx={{
         display: "flex",
         flexWrap: "wrap",
+
         "& > :not(style)": {
           m: 0.5,
           flex: "1 0 auto",
           minWidth: 0,
           minHeight: 80,
+          maxWidth: "100%",
         },
+        maxWidth: "95%",
       }}>
       <BlogCard
         blogId={sampleBlogTarget.blogId}

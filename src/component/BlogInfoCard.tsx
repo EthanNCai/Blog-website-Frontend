@@ -10,7 +10,7 @@ const labels = ["43", "1", "4", "2021.2.12"];
 
 export default function BlogInfoCard() {
   return (
-    <Paper elevation={12}>
+    <Paper elevation={3}>
       <Box padding={"20px"}>
         <Typography variant="h5" component="div" sx={{ fontFamily: "JBFont" }}>
           convLSTM Horizon self driving v1.0'

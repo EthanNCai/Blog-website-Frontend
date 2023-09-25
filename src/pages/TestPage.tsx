@@ -1,30 +1,60 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import ReactMarkdown from "react-markdown";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Container } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
+import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
-import { createTheme } from "@mui/material/styles";
-import { purple, green, blue, grey } from "@mui/material/colors";
-import SearchAppBar from "../component/SearchAppBar";
-import { ThemeProvider } from "@mui/material";
-import { BlurOffOutlined, Padding } from "@mui/icons-material";
-import BlogInfoCard from "../component/BlogInfoCard";
-import BasicSpeedDial from "../component/BasicSpeedDail";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import SearchAppBar from "../component/SearchAppBar";
+import BlogInfoCard from "../component/BlogInfoCard";
+import BasicSpeedDial from "../component/BasicSpeedDail";
+
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  width: 100%;
+
+  td,
+  th {
+    border: 2px solid black;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #eeeeee;
+  }
+`;
+
+const StyledBlockquote = styled.blockquote`
+  border-left: 2px solid #ccc;
+  padding-left: 16px;
+  margin: 0;
+  color: #555;
+  font-style: italic;
+`;
+
+const StyledImage = styled.img`
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+`;
 
 export default function TestPage() {
   const [markdownContent, setMarkdownContent] = useState("");
+
   useEffect(() => {
     fetch("./nice.md")
       .then((response) => response.text())
       .then((text) => setMarkdownContent(text));
   }, []);
+
   const queryParameters = new URLSearchParams(window.location.search);
   const bid = queryParameters.get("bid");
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -35,6 +65,7 @@ export default function TestPage() {
       },
     },
   });
+
   return (
     <>
       <Helmet>
@@ -52,12 +83,16 @@ export default function TestPage() {
           }}>
           <SearchAppBar />
         </div>
-        <Container maxWidth="md" sx={{ padding: "10px", marginTop: "66px" }}>
+        <Container maxWidth="md" sx={{ padding: "20px", marginTop: "66px" }}>
           <BlogInfoCard />
           <Box paddingTop={"20px"}>
             <ReactMarkdown
               children={markdownContent}
+              remarkPlugins={[gfm]}
               components={{
+                table({ node, ...props }) {
+                  return <StyledTable {...props} />;
+                },
                 code({ node, inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");
                   return !inline && match ? (
@@ -73,6 +108,12 @@ export default function TestPage() {
                       {children}
                     </code>
                   );
+                },
+                blockquote({ node, ...props }) {
+                  return <StyledBlockquote {...props} />;
+                },
+                img({ node, src, alt, ...props }) {
+                  return <StyledImage src={src} alt={alt} {...props} />;
                 },
               }}
             />

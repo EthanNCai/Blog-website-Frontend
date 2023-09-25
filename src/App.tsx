@@ -8,6 +8,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  Box,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
