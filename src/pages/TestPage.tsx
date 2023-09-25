@@ -12,8 +12,17 @@ import { ThemeProvider } from "@mui/material";
 import { BlurOffOutlined, Padding } from "@mui/icons-material";
 import BlogInfoCard from "../component/BlogInfoCard";
 import BasicSpeedDial from "../component/BasicSpeedDail";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useState, useEffect } from "react";
+
 export default function TestPage() {
-  // 使用 params 对象来访问 URL 中的参数
+  const [markdownContent, setMarkdownContent] = useState("");
+  useEffect(() => {
+    fetch("./nice.md")
+      .then((response) => response.text())
+      .then((text) => setMarkdownContent(text));
+  }, []);
   const queryParameters = new URLSearchParams(window.location.search);
   const bid = queryParameters.get("bid");
   const theme = createTheme({
@@ -33,14 +42,40 @@ export default function TestPage() {
         <title>Lambo</title>
       </Helmet>
       <ThemeProvider theme={theme}>
-        <SearchAppBar />
-        <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 9999,
+          }}>
+          <SearchAppBar />
+        </div>
+        <Container maxWidth="md" sx={{ padding: "10px", marginTop: "66px" }}>
           <BlogInfoCard />
           <Box paddingTop={"20px"}>
-            <ReactMarkdown remarkPlugins={[gfm]}>
-              *React-Markdown* now supports ~strikethrough~. Thanks to gfm
-              plugin.
-            </ReactMarkdown>
+            <ReactMarkdown
+              children={markdownContent}
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      {...props}
+                      children={String(children).replace(/\n$/, "")}
+                      style={oneDark}
+                      language={match[1]}
+                      PreTag="div"
+                    />
+                  ) : (
+                    <code {...props} className={className}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            />
           </Box>
         </Container>
         <BasicSpeedDial />

@@ -1,13 +1,11 @@
 {
-  "main_page": {
-    "back_to": "back to",
-    "welcome": "Hello!",
-    "find_me": "Find me:",
-    "site_info": "Site info.",
-    "establisher_info": "Establisher info.",
-    "site_info_content": "This is a site for displaying my blog",
-    "establisher_info_content": "I am a undergraduate student, major in C.S.",
-    "expand": "Expand",
-    "read": "Read"
-  }
+  "back_to": "back to",
+  "welcome": "Hello!",
+  "find_me": "Find me:",
+  "site_info": "Site info.",
+  "establisher_info": "Establisher info.",
+  "site_info_content": "This is a site for displaying my blog",
+  "establisher_info_content": "I am a undergraduate student, major in C.S.",
+  "expand": "Expand",
+  "read": "Read"
 }

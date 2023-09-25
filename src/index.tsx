@@ -1,31 +1,38 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { Route, Routes, Outlet } from "react-router";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import TestPage from "./pages/TestPage";
-import global_en from "./caption/en/global.json";
-import global_cn_s from "./caption/cn_s/global.json";
-import global_cn_t from "./caption/cn_t/global.json";
+import ReactDOM from "react-dom";
 import i18next from "i18next";
-import { I18nextProvider } from "react-i18next";
+import { I18nextProvider, initReactI18next } from "react-i18next";
+import HttpApi from "i18next-http-backend";
+import LanguageDetector from "i18next-browser-languagedetector";
 
-i18next.init({
-  interpolation: { escapeValue: false },
-  lng: "en",
-  resources: {
-    en: {
-      global: global_en,
+i18next
+  .use(HttpApi)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    supportedLngs: ["en", "ar", "fr"],
+    fallbackLng: "en",
+    debug: false,
+    // Options for language detector
+    detection: {
+      order: ["path", "cookie", "htmlTag"],
+      caches: ["cookie"],
     },
-    cn_t: {
-      global: global_cn_t,
+    // react: { useSuspense: false },
+    backend: {
+      loadPath: "/assets/locales/{{lng}}/translation.json",
     },
-    cn_s: {
-      global: global_cn_s,
-    },
-  },
-});
+  });
 
 const router = createBrowserRouter([
   {
@@ -38,10 +45,15 @@ const router = createBrowserRouter([
   },
 ]);
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+ReactDOM.render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="testPage" element={<TestPage />} />
+    </Routes>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
-root.render(<RouterProvider router={router} />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -43,7 +43,7 @@ function App() {
           }}>
           <SearchAppBar />
         </div>
-        <Container maxWidth="lg" sx={{ padding: "10px", marginTop: "100px" }}>
+        <Container maxWidth="lg" sx={{ padding: "10px", marginTop: "66px" }}>
           <IntroBar />
           <IntroCard />
         </Container>

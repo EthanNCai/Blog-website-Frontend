@@ -14,6 +14,8 @@
     "@types/node": "^16.18.51",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "i18next-browser-languagedetector": "^7.1.0",
+    "i18next-http-backend": "^2.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -21,6 +23,7 @@
     "react-router-dom": "^6.16.0",
     "react-router-i18n": "^1.1.1",
     "react-scripts": "5.0.1",
+    "react-syntax-highlighter": "^15.5.0",
     "react-transition-group": "^4.4.5",
     "remark-gfm": "^3.0.1",
     "styled-components": "^6.0.8",
@@ -52,6 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-helmet": "^6.1.6"
+    "@types/react-helmet": "^6.1.6",
+    "@types/react-syntax-highlighter": "^15.5.7"
   }
 }

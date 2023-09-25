@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { EmojiPeople, Web } from "@mui/icons-material";
 import { Stack } from "@mui/material";
+import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
 export default function BasicAccordion() {
@@ -23,7 +24,7 @@ export default function BasicAccordion() {
               sx={{
                 fontFamily: "JBFont",
               }}>
-              ni
+              Site info.
             </Typography>
           </Stack>
         </AccordionSummary>

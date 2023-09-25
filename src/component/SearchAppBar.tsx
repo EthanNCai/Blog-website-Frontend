@@ -39,21 +39,7 @@ export default function SearchAppBar() {
             }}>
             Chicken yd.
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <ButtonGroup variant="outlined">
-              <Button style={{ color: "black" }}>简</Button>
-              <Button style={{ color: "black" }}>繁</Button>
-              <Button style={{ color: "black" }}>EN</Button>
-            </ButtonGroup>
-          </Box>
         </Toolbar>
-        <Box sx={{ display: { xs: "block", sm: "none" } }}>
-          <ButtonGroup variant="outlined" size="small">
-            <Button style={{ color: "black" }}>简</Button>
-            <Button style={{ color: "black" }}>繁</Button>
-            <Button style={{ color: "black" }}>EN</Button>
-          </ButtonGroup>
-        </Box>
       </AppBar>
     </Box>
   );
