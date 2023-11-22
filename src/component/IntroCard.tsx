@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import BlogCard from "./BlogCard";
 import { Pagination, Stack } from "@mui/material";
-import { CSSTransition } from "react-transition-group";
+
 import { BlogProps } from "../objs/blogProps";
 export default function IntroCard() {
   const sampleBlogTarget: BlogProps = {

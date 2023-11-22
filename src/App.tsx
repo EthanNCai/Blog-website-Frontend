@@ -1,19 +1,8 @@
-import React from "react";
-
 import SearchAppBar from "./component/SearchAppBar";
-import {
-  AppBar,
-  Container,
-  CssBaseline,
-  Stack,
-  Toolbar,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { purple, green, blue, grey } from "@mui/material/colors";
-import { createGlobalStyle } from "styled-components";
+import { grey } from "@mui/material/colors";
 import IntroCard from "./component/IntroCard";
 
 import IntroBar from "./component/IntroBar";

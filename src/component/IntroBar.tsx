@@ -1,13 +1,6 @@
 import Box from "@mui/material/Box";
-import BlogCard from "./BlogCard";
-import {
-  Paper,
-  Stack,
-  Chip,
-  Avatar,
-  Container,
-  Typography,
-} from "@mui/material";
+
+import { Paper, Stack, Typography } from "@mui/material";
 import BasicAccordion from "./BasicAccordion";
 import { Email, GitHub, Reddit } from "@mui/icons-material";
 export default function IntroBar() {

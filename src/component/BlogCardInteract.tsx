@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import { CSSTransition } from "react-transition-group";
 import { Chip } from "@mui/material";
 import { CalendarMonth, Visibility } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 
 interface BlogCardInteractProps {
   isEX: boolean;
@@ -55,7 +52,10 @@ export default function BlogCardInteract({
         style={chipStyle}
       />
 
-      <a href={`/testPage?bid=${blogID}`} target="_blank">
+      <a
+        href={`/testPage?bid=${blogID}`}
+        target="_blank"
+        rel="noopener noreferrer">
         <Chip size="small" label="Read" color="success" style={chipStyle} />
       </a>
     </Box>

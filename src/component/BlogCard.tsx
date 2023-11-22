@@ -1,12 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { CSSTransition } from "react-transition-group";
-import { Stack, Toolbar, Typography, Chip, Avatar } from "@mui/material";
-import { Padding, ThumbDown, ThumbUp, Visibility } from "@mui/icons-material";
-import Fade from "@mui/material/Fade";
+import { Stack, Typography } from "@mui/material";
 import Grow from "@mui/material/Grow";
-import { Link } from "react-router-dom";
 import { BlogProps } from "../objs/blogProps";
 import BlogCardInteract from "./BlogCardInteract";
 

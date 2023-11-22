@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Container } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -56,9 +56,6 @@ export default function TestPage() {
       .then((response) => response.text())
       .then((text) => setMarkdownContent(text));
   }, []);
-
-  const queryParameters = new URLSearchParams(window.location.search);
-  const bid = queryParameters.get("bid");
 
   const theme = createTheme({
     palette: {
