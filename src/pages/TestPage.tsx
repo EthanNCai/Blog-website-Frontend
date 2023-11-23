@@ -30,7 +30,7 @@ const StyledTable = styled.table`
   }
 
   @media (max-width: 600px) {
-    font-size: 12px; /* 在较小宽度下缩小字体大小 */
+    font-size: 12px;
   }
 `;
 const StyledBlockquote = styled.blockquote`
@@ -121,7 +121,6 @@ export default function TestPage() {
             />
           </Box>
         </Container>
-        <BasicSpeedDial />
       </ThemeProvider>
     </>
   );
