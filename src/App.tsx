@@ -29,11 +29,11 @@ function App() {
             top: 0,
             left: 0,
             right: 0,
-            zIndex: 9999,
+            zIndex: 99,
           }}>
           <SearchAppBar />
         </div>
-        <Container maxWidth="lg" sx={{ padding: "10px", marginTop: "66px" }}>
+        <Container maxWidth="lg" sx={{ padding: "0px", marginTop: "66px" }}>
           <IntroBar />
           <IntroCard />
         </Container>

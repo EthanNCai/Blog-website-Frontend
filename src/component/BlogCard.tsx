@@ -10,7 +10,9 @@ export default function BlogCard(blogProps: BlogProps) {
   const [isEx, setEX] = React.useState(false);
 
   return (
-    <Paper elevation={4} sx={{ overflow: "auto" }}>
+    <Paper
+      elevation={4}
+      sx={{ overflow: "auto", maxWidth: "95%", paddingBottom: "10px" }}>
       <Stack direction={"column"} sx={{ justifyContent: "in-between" }}>
         <Stack
           sx={{ padding: "10px", justifyContent: "in-between" }}

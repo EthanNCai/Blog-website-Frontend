@@ -7,7 +7,7 @@ export default function IntroCard() {
   const sampleBlogTarget: BlogProps = {
     blogId: "123",
     avatarUrl:
-      "https://th.bing.com/th/id/OIP.MJUej5_qU3aCnTy2Jn3PpwHaJD?pid=ImgDet&rs=1",
+      "https://www.backwoodshome.com/bhm/wp-content/uploads/2015/12/chicken-3727097_1920.jpg",
     title: "'convLSTM Horizon self driving v1.0'",
     detail:
       "'This is a project that use a convLSTm to control a virtual car in horizon four to drive like a human, quite interesting'",
@@ -20,15 +20,15 @@ export default function IntroCard() {
       sx={{
         display: "flex",
         flexWrap: "wrap",
-
         "& > :not(style)": {
-          m: 0.5,
           flex: "1 0 auto",
           minWidth: 0,
           minHeight: 80,
           maxWidth: "100%",
+          marginBottom: "8px",
+          padding: "6px",
         },
-        maxWidth: "95%",
+        padding: "8px",
       }}>
       <BlogCard
         blogId={sampleBlogTarget.blogId}
@@ -54,13 +54,6 @@ export default function IntroCard() {
         date={sampleBlogTarget.date}
         viewer={sampleBlogTarget.viewer}
       />
-      <Stack
-        direction={"row"}
-        justifyContent={"center"}
-        padding={"30px"}
-        width={"100%"}>
-        <Pagination count={10} />
-      </Stack>
     </Box>
   );
 }

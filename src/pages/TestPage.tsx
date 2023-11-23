@@ -11,7 +11,6 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Box from "@mui/material/Box";
 import SearchAppBar from "../component/SearchAppBar";
 import BlogInfoCard from "../component/BlogInfoCard";
-import BasicSpeedDial from "../component/BasicSpeedDail";
 
 const StyledTable = styled.table`
   border-collapse: collapse;

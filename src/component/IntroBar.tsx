@@ -11,11 +11,12 @@ export default function IntroBar() {
           display: "flex",
           flexWrap: "wrap",
           "& > :not(style)": {
-            m: 0.5,
             flex: "1 0 auto",
             minWidth: 0,
             minHeight: 80,
+            maxWidth: "100%",
           },
+          padding: "10px",
         }}>
         <Paper elevation={5} sx={{ maxWidth: "95%", overflow: "auto" }}>
           <Stack
