@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 
 import { Paper, Stack, Typography } from "@mui/material";
-import BasicAccordion from "./BasicAccordion";
+import PersonalInfoBar from "./PersonalInfoBar";
 import { Email, GitHub, Reddit } from "@mui/icons-material";
 export default function IntroBar() {
   return (
@@ -52,7 +52,7 @@ export default function IntroBar() {
               </Stack>
             </Box>
           </Stack>
-          <BasicAccordion />
+          <PersonalInfoBar />
         </Paper>
       </Box>
     </div>

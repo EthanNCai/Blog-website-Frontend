@@ -9,8 +9,8 @@ import gfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Box from "@mui/material/Box";
-import SearchAppBar from "../component/SearchAppBar";
-import BlogInfoCard from "../component/BlogInfoCard";
+import SearchAppBar from "../component/Banner";
+import InBlogTitle from "../component/InBlogTitle";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { InlineMath, BlockMath } from "react-katex";
 import RemarkMathPlugin from "remark-math";
@@ -97,7 +97,7 @@ export default function TestPage() {
           <SearchAppBar />
         </div>
         <Container maxWidth="md" sx={{ padding: "20px", marginTop: "66px" }}>
-          <BlogInfoCard />
+          <InBlogTitle />
           <Box paddingTop={"20px"}>
             <MathJaxContext config={mathJaxConfig}>
               <MathJax>

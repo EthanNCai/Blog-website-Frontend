@@ -4,10 +4,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
 
-export default function SearchAppBar() {
+export default function Banner() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           <Chip
             label="back to"

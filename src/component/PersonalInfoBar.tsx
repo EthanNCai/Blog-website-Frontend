@@ -6,7 +6,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { EmojiPeople, Web } from "@mui/icons-material";
 import { Stack, Box } from "@mui/material";
 
-export default function BasicAccordion() {
+export default function PersonalInfoBar() {
   return (
     <div>
       <Accordion>

@@ -1,19 +1,20 @@
-import SearchAppBar from "./component/SearchAppBar";
+import Banner from "./component/Banner";
 import { Container, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
-import IntroCard from "./component/IntroCard";
+import { grey, orange } from "@mui/material/colors";
+import BlogFlow from "./component/BlogFlow";
 
 import IntroBar from "./component/IntroBar";
+
 //Theme control
 const theme = createTheme({
   palette: {
     primary: {
-      main: grey[100],
+      main: grey[600],
     },
     secondary: {
-      main: grey[300],
+      main: grey[200],
     },
   },
 });
@@ -31,11 +32,12 @@ function App() {
             right: 0,
             zIndex: 99,
           }}>
-          <SearchAppBar />
+          <Banner />
         </div>
         <Container maxWidth="lg" sx={{ padding: "0px", marginTop: "66px" }}>
           <IntroBar />
-          <IntroCard />
+
+          <BlogFlow />
         </Container>
       </ThemeProvider>
     </>
