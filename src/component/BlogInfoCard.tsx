@@ -1,4 +1,3 @@
-import React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -23,6 +22,7 @@ export default function BlogInfoCard() {
             key={index}
             icon={icon}
             label={labels[index]}
+            sx={{ fontFamily: "JBFont" }}
             size="small"
             color="secondary"
             style={{ marginInline: "5px" }}

@@ -1,154 +1,145 @@
-| 这个作业属于哪个课程 | [link](https://edu.cnblogs.com/campus/jmu/ComputerScience21)                |
-| -------------------- | --------------------------------------------------------------------------- |
-| 这个作业要求在哪里   | [link](https://edu.cnblogs.com/campus/jmu/ComputerScience21/homework/13034) |
-| 这个作业的目标       | 进行编程练习，练习使用 git                                                  |
+## introduction
 
-## GitHub 仓库地址
+Forza Horizon 4 is a very popular and well known single
+and multiplayer cross-platform racing game.
+The main gameplay of the game is to drive a vehicle
+and then follow a fixed route (players must pass all the check points along the way), then try your best to be the first to cross
+the finish line.
 
-[GitHub](https://github.com/EthanNCai?tab=projects)
+The ultimate goal of this project is to create an ML model that can play this game
+fully automated at an acceptable skill, allowing us to win or
+complete a race even if we are away from the keyboard.
 
-## 项目需求
+It is important to note that this project focuses on allowing
+the model to clone human behavior and does not access to any of
+the game's built-in APIs (actually there's no such kind of APIs at all), and that the information
+(mostly visual) that the real player gets while playing
+will be used as the **only** input to the model.
+The model's outputs are also identical to the player's,
+i.e. keyboard action.
 
-> 题目：论文查重
-> 描述如下：
-> 设计一个论文查重算法，给出一个原文文件和一个在这份原文上经过了增删改的抄袭版论文的文件，在答案文件中输出其重复率。
-> 原文示例：今天是星期天，天气晴，今天晚上我要去看电影。
-> 抄袭版示例：今天是周天，天气晴朗，我晚上要去看电影。
-> 要求输入输出采用文件输入输出，规范如下：
-> 从命令行参数给出：论文原文的文件的绝对路径。
-> 从命令行参数给出：抄袭版论文的文件的绝对路径。
-> 从命令行参数给出：输出的答案文件的绝对路径。
-> 我们提供一份样例，课堂上下发，上传到班级群，使用方法是：orig.txt 是原文，其他 orig_add.txt 等均为抄袭版论文。
-> 注意：答案文件中输出的答案为浮点型，精确到小数点后两位
+here's how I develop everything
 
-## 开发环境
+1. Generating datasets by recording human's gameplay (a sample is consists of screen and the keyboard actions)
+2. Data preprocessing (cropping, resizing, gray-scaling, canny edge detection etc.)
+3. Training with different models
+4. evaluate performance in actual game environments(Forza Horizon 4)
 
-- 操作系统：Windows 11 Education
-- 处理器：11th Gen Intel(R) Core(TM) i9-11900K
-- 语言：Python
-- IDE：PyCharm 2023.2.1
+I used two kinds of models to try to accomplish this goal.
 
-## 计算模块接口的设计与实现过程
+- a regular convolutional neural network
+- a convLSTM
 
-对于这道题，我的解决思路是
+it is worth mentioning that no matter which method is used,
+the inputs and the outputs are the identical from an external
+perspective, i.e. **a frame is used as the input and the
+model predicts the corresponding keyboard action.**
 
-- 1.对读入的文件进行分词，也就是 NLP 里所谓的 Tokenization
+Theoretically, the performance of the convLSTM
+network should be better than that of a regular CNN network.
+This is because convLSTM enables the model to take more
+than just the current frame into account when making decisions.
+The information contained in past frames is also selectively
+retained to influence the current decision. Unlike CNNs,
+the decision output from CNNs depends entirely on the
+information in the current frame. Consider either real
+life car driving or car driving in a game. When making
+some difficult maneuvers, such as turning. How humans
+operate the steering wheel is also a process that requires
+reference to past short-term memory.
 
-- 2.将两个文件的词频进行计算，形成两个文件对应的词频向量
+One more thing I must
+point out is that no matter which model structure is used.
+The driving level of the real human player
+who recorded the training set will be the **upper limit**
+of the model's driving ability. This is because the model
+is always just approaching and mimicking the behavior of
+the training set. If you want the model to achieve a
+breakthrough in driving skill, perhaps reinforcement
+training is a better option.
 
-- 3.比较两个词频向量的空间相似度（这里使用的是余弦公式算法）这里得到的空间相似度就是我们需要的文章查重率
+### CNN
 
-源代码中较为关键的代码块如下
+![pic0](pictures_for_readme/cnn.jpg)
 
-```python
-# 建立分词表
-def build_frequency_dict(tokens):
-    frequency_dict = defaultdict(int)
-    for token in tokens:
-        frequency_dict[token] += 1
-    return frequency_dict
+### convLSTM
 
-```
+The convLSTM has a very important parameter
+with respect to the CNN.
+It is the _time step_
+of the LSTM network. In the case of images,
+its value is $n$. Unlike CNNs which feed
+a single image into the model at a time, convLSTM feeds a sequence of images into the model.
+In this project it is a sequence of images from the past $n$ frames. We need to feed the LSTM with $n$
+frames from $f_n$ until $f_0$ so that the convLSTM can make decisions based
+on the information it gets from $f_n$ to $f_0$.
 
-```python
-# 根据与余弦公式进行计算，这里我使用numpy的linalg参与运算
-def calculate_similarity(text1, text2):
-    dict1 = build_frequency_dict(text1)
-    dict2 = build_frequency_dict(text2)
-    aligned_dict1, aligned_dict2 = align_dictionaries(dict1, dict2)
-    vector1 = np.array(list(aligned_dict1.values()))
-    vector2 = np.array(list(aligned_dict2.values()))
-    dot_product = np.dot(vector1, vector2)
-    norm1 = np.linalg.norm(vector1)
-    norm2 = np.linalg.norm(vector2)
-    cosine_similarity = dot_product / (norm1 * norm2)
-    return cosine_similarity
-```
+In Python.
+I used queue structure to store the past $n$ frames,
+which is surrounded by blue dotted lines on the picture.
+As the game progresses, we get a new frame $f_0$ and add it to the queue,
+since the length of the queue is fixed, we remove the oldest $f_{n+1}$ frame
+from the queue so that the queue always holds the current
+frame and the $n$ frames before the current frame for input to the convLSTM.
 
-所有函数如下
+![pic1](pictures_for_readme/lstm.jpg)
 
-```python
-get_file_contents(path) # 读取文件
-filter_text(string) # 对文件进行初筛，筛掉一些如转义字符等的无关字符，然后使用jieba库进行分词
-build_frequency_dict(tokens) # 建立单词的频数字典
-align_dictionaries(dict1, dict2) # 生成两个词频数向量
-calculate_similarity(text1, text2) # 比较向量相似性
-save_float_to_file(float_number, file_path) # 把结果写入文件
-```
+## Getting Started
 
-### Requirements
+### Step1 : create a dataset
 
-```
-jieba
-re
-numpy==1.19.5
-sys
-collections
-```
+You need to collect real human in-game actions and the corresponding game
+screens as a training set. Here you can choose to record your own training
+set using the python script I provided or download the training set I previously collected.
 
-## 计算模块接口部分的性能改进
+> sorry, the download service of my website is currently unavailable.
+> please send a message to chickenbilibili@outlook.com to acquire this dataset.
 
-通过 PyCharm 对 python 脚本的代码性能进行分析，下面展示了（部分）函数调用表和图指向了这个 python 脚本的性能瓶颈在`jieba`这个库中，除此之外消耗量最大的（瓶颈）函数是 calculate_similarity，这里我将 python 的原 list 更换为 numpy 的 list 以及一些方法来重构代码，从而提高性能。
+[Download dataset-0.npy](not_available)
 
-![](https://img2023.cnblogs.com/blog/3215865/202309/3215865-20230920195132968-1452983629.png)
-![](https://img2023.cnblogs.com/blog/3215865/202309/3215865-20230920195139570-90552574.png)
+If you want to create your own dataset, here's how:
 
-## 计算模块部分单元测试展示
+- 1._Confirm the frame capturing area_: use **DataCollection/CapturePreview.py**
+  to preview the frame capture
+  zone,
+- 2._Start recording your gameplay_: After you confirm the frame capturing area, in directory
+  **DataCollection**,
+  make sure the parameter of _grab_screen()_
+  in **DataCollection.py** is identical to the one of _grab_screen()_'s in **ModelPreview.py**
+- Find more details in code comments
 
-### 普通测试
+### Step3 : preview the dataset
 
-![](https://img2023.cnblogs.com/blog/3215865/202309/3215865-20230920185244552-1663173994.png)
+You can preview the dataset with the script I provided,
+**DataCollection/DataPreview.py** This will sequentially play the frame and the corresponding
+label which is a four element long vector : _[W,A,S,D]_
 
-得到
-![](logo512.png)
+- it just like playing a video
 
-### 对于异常的测试覆盖
+### Step4 : preprocess, train, preview and finally play model
 
-这里我使用错误的答案文件路径作为参数输入，程序如预期报错
-![](https://img2023.cnblogs.com/blog/3215865/202309/3215865-20230920200006426-2077361387.png)
+Inside **CNN** and **convLSTM** directories, you can preprocess, train,
+preview and play the corresponding
+model.
 
-## 计算模块部分异常处理说明
+After the dataset inplace, you still need to do one more thing before training,
+that is, data preprocess. Here's how.
 
-文件读写的异常处理
+- For CNN
 
-```python
-def get_file_contents(path):
-   try:
-       with open(path, 'r', encoding='UTF-8') as f:
-           return f.read()
-   except IOError:
-       print(f"Error:文件读取失败，位置： {path}")
-       return ""
+  - convert the `[W,A,S,D]` raw label format into the one-hot encoded format
+  - balance the data to prevent the model fall into the shortcut solution
 
-```
+- For LSTM
+  - convert the `[W,A,S,D]` raw label format into the one-hot encoded format
+  - restructure the dataset. that is, form the raw-data structure like `[(img_1,key_1),(img_2,key_2)...]` to something like `[([img_1,img_2...img_n],key_n),([img_2,img_3...img_n+1],key_n+1)...]` the `n` here is acutally the `timestep` in LSTM
+  - balance the data to prevent the model fall into the shortcut solution
 
-```python
-def save_float_to_file(float_number, file_path):
-   try:
-       with open(file_path, 'w') as file:
-           file.write(str(float_number))
-   except IOError:
-       print(f"Error: 文件写入失败，位置： {file_path}")
+**DataPreprocess.py** performed label balancing,
+one-hot encoding and more to the dataset.
+For convLSTM in particular, its **DataPreprocess.py** also includes converting
+the dataset into sequential samples according to a specified _time step_.
 
-```
+after data preprocessing, use **trainModel.py** to load and train the preprocessed data.
 
-## PSP 表
-
-| PSP2.1                                  | Personal Software Process Stages        | 预估耗时（分钟） | 实际耗时（分钟） |
-| --------------------------------------- | --------------------------------------- | ---------------- | ---------------- |
-| Planning                                | 计划                                    | 30               | 20               |
-| - Estimate                              | - 估计这个任务需要多少时间              | 80               | 70               |
-| Development                             | 开发                                    | 40               | 30               |
-| - Analysis                              | - 需求分析 (包括学习新技术)             | 25               | 20               |
-| - Design Spec                           | - 生成设计文档                          | 30               | 30               |
-| - Design Review                         | - 设计复审                              | 40               | 40               |
-| - Coding Standard                       | - 代码规范 (为目前的开发制定合适的规范) | 20               | 2                |
-| - Design                                | - 具体设计                              | 20               | 13               |
-| - Coding                                | - 具体编码                              | 25               | 14               |
-| - Code Review                           | - 代码复审                              | 20               | 18               |
-| - Test                                  | - 测试（自我测试，修改代码，提交修改）  | 25               | 22               |
-| Reporting                               | 报告                                    | 40               | 53               |
-| - Test Report                           | - 测试报告                              | 15               | 12               |
-| - Size Measurement                      | - 计算工作量                            | 20               | 2                |
-| - Postmortem & Process Improvement Plan | - 事后总结, 并提出过程改进计划          | 20               | 11               |
-| 合计                                    |                                         | 555              | 312              |
+> warning: In order to successfully train the model, the `timestep` value in both `DataPreprocess.py` and `tranModel.py` must be consisted.

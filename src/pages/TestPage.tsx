@@ -11,25 +11,26 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Box from "@mui/material/Box";
 import SearchAppBar from "../component/SearchAppBar";
 import BlogInfoCard from "../component/BlogInfoCard";
-
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { InlineMath, BlockMath } from "react-katex";
+import RemarkMathPlugin from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
+const config = {
+  loader: { load: ["input/asciimath"] },
+};
 const StyledTable = styled.table`
   border-collapse: collapse;
   width: 100%;
-  table-layout: auto;
-  font-size: 14px; /* 默认字体大小 */
 
   td,
   th {
-    border: 2px solid black;
-    padding: 8px;
+    border: 1px solid black;
+    padding: 6px;
   }
 
   th {
     background-color: #eeeeee;
-  }
-
-  @media (max-width: 600px) {
-    font-size: 12px;
   }
 `;
 const StyledBlockquote = styled.blockquote`
@@ -49,13 +50,24 @@ const StyledImage = styled.img`
 
 export default function TestPage() {
   const [markdownContent, setMarkdownContent] = useState("");
+  const mathJaxConfig = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+    },
+  };
 
   useEffect(() => {
     fetch("./nice.md")
       .then((response) => response.text())
       .then((text) => setMarkdownContent(text));
   }, []);
-
+  const renderers = {
+    inlineMath: ({ value }: { value: string }) => <InlineMath math={value} />,
+    math: ({ value }: { value: string }) => <BlockMath math={value} />,
+  };
   const theme = createTheme({
     palette: {
       primary: {
@@ -87,37 +99,51 @@ export default function TestPage() {
         <Container maxWidth="md" sx={{ padding: "20px", marginTop: "66px" }}>
           <BlogInfoCard />
           <Box paddingTop={"20px"}>
-            <ReactMarkdown
-              children={markdownContent}
-              remarkPlugins={[gfm]}
-              components={{
-                table({ node, ...props }) {
-                  return <StyledTable {...props} />;
-                },
-                code({ node, inline, className, children, ...props }) {
-                  const match = /language-(\w+)/.exec(className || "");
-                  return !inline && match ? (
-                    <SyntaxHighlighter
-                      {...props}
-                      children={String(children).replace(/\n$/, "")}
-                      style={oneDark}
-                      language={match[1]}
-                      PreTag="div"
-                    />
-                  ) : (
-                    <code {...props} className={className}>
-                      {children}
-                    </code>
-                  );
-                },
-                blockquote({ node, ...props }) {
-                  return <StyledBlockquote {...props} />;
-                },
-                img({ node, src, alt, ...props }) {
-                  return <StyledImage src={src} alt={alt} {...props} />;
-                },
-              }}
-            />
+            <MathJaxContext config={mathJaxConfig}>
+              <MathJax>
+                <ReactMarkdown
+                  children={markdownContent}
+                  remarkPlugins={[gfm]}
+                  components={{
+                    table({ node, ...props }) {
+                      return <StyledTable {...props} />;
+                    },
+                    code({ node, inline, className, children, ...props }) {
+                      const match = /language-(\w+)/.exec(className || "");
+                      if (inline) {
+                        return (
+                          <code {...props} className={className}>
+                            {children}
+                          </code>
+                        );
+                      } else if (match) {
+                        return (
+                          <SyntaxHighlighter
+                            {...props}
+                            children={String(children).replace(/\n$/, "")}
+                            style={oneDark}
+                            language={match[1]}
+                            PreTag="div"
+                          />
+                        );
+                      } else {
+                        return (
+                          <code {...props} className={className}>
+                            {children}
+                          </code>
+                        );
+                      }
+                    },
+                    blockquote({ node, ...props }) {
+                      return <StyledBlockquote {...props} />;
+                    },
+                    img({ node, src, alt, ...props }) {
+                      return <StyledImage src={src} alt={alt} {...props} />;
+                    },
+                  }}
+                />
+              </MathJax>
+            </MathJaxContext>
           </Box>
         </Container>
       </ThemeProvider>
