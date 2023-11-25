@@ -34,7 +34,7 @@ function App() {
           }}>
           <Banner />
         </div>
-        <Container maxWidth="lg" sx={{ padding: "0px", marginTop: "66px" }}>
+        <Container maxWidth="md" sx={{ padding: "0px", marginTop: "66px" }}>
           <IntroBar />
 
           <BlogFlow />

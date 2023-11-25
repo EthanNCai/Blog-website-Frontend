@@ -19,6 +19,21 @@ export default function IntroBar() {
           padding: "10px",
         }}>
         <Paper elevation={5} sx={{ maxWidth: "95%", overflow: "auto" }}>
+          <Box
+            sx={{
+              overflow: "hidden",
+              maxHeight: "30vh",
+            }}>
+            <img
+              src="rt.webp"
+              alt="Loading"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
