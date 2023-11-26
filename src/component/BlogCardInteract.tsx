@@ -52,10 +52,7 @@ export default function BlogCardInteract({
         style={chipStyle}
       />
 
-      <a
-        href={`/testPage?bid=${blogID}`}
-        target="_blank"
-        rel="noopener noreferrer">
+      <a href={`/Article?id=${blogID}`} rel="noopener noreferrer">
         <Chip size="small" label="Read" color="success" style={chipStyle} />
       </a>
     </Box>

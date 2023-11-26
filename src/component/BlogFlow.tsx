@@ -1,19 +1,24 @@
 import Box from "@mui/material/Box";
 import BlogCard from "./BlogCard";
 import { Button, Paper, TextField } from "@mui/material";
-
+import { useEffect, useState } from "react";
 import { BlogProps } from "../objs/blogProps";
 import { Search } from "@mui/icons-material";
 export default function IntroCard() {
-  const sampleBlogTarget: BlogProps = {
-    blogId: "123",
-    avatarUrl:
-      "https://www.backwoodshome.com/bhm/wp-content/uploads/2015/12/chicken-3727097_1920.jpg",
-    title: "This is a test title! keep moving chicken! for polyU!",
-    detail:
-      "'This is a project that use a convLSTm to control a virtual car in horizon four to drive like a human, quite interesting'",
-    date: "23.12.02",
-    viewer: "213",
+  const [blogData, setBlogData] = useState<BlogProps[]>([]);
+
+  useEffect(() => {
+    fetchBlogData();
+  }, []);
+
+  const fetchBlogData = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/blog/blogFlow");
+      const data = await response.json();
+      setBlogData(data);
+    } catch (error) {
+      console.error("Error fetching blog data:", error);
+    }
   };
 
   return (
@@ -68,30 +73,19 @@ export default function IntroCard() {
           },
           padding: "8px",
         }}>
-        <BlogCard
-          blogId={sampleBlogTarget.blogId}
-          avatarUrl={sampleBlogTarget.avatarUrl}
-          title={sampleBlogTarget.title}
-          detail={sampleBlogTarget.detail}
-          date={sampleBlogTarget.date}
-          viewer={sampleBlogTarget.viewer}
-        />
-        <BlogCard
-          blogId={sampleBlogTarget.blogId}
-          avatarUrl={sampleBlogTarget.avatarUrl}
-          title={sampleBlogTarget.title}
-          detail={sampleBlogTarget.detail}
-          date={sampleBlogTarget.date}
-          viewer={sampleBlogTarget.viewer}
-        />
-        <BlogCard
-          blogId={sampleBlogTarget.blogId}
-          avatarUrl={sampleBlogTarget.avatarUrl}
-          title={sampleBlogTarget.title}
-          detail={sampleBlogTarget.detail}
-          date={sampleBlogTarget.date}
-          viewer={sampleBlogTarget.viewer}
-        />
+        {blogData.map((blog) => (
+          <BlogCard
+            key={blog.blog_id}
+            blog_id={blog.blog_id}
+            blog_name={blog.blog_name}
+            blog_likes={blog.blog_likes}
+            blog_hates={blog.blog_hates}
+            blog_date={blog.blog_date}
+            blog_category={blog.blog_category}
+            blog_description={blog.blog_description}
+            blog_reads={blog.blog_reads}
+          />
+        ))}
       </Box>
     </>
   );

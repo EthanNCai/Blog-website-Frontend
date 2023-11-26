@@ -2,7 +2,7 @@ import "./index.css";
 import App from "./App";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import TestPage from "./pages/TestPage";
+import Article from "./pages/Article";
 import MathTest from "./pages/MathTest";
 import HttpTest from "./pages/HttpTest";
 
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/TestPage",
-    element: <TestPage />,
+    path: "/Article",
+    element: <Article />,
   },
   {
     path: "/math",

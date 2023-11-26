@@ -12,13 +12,8 @@ import Box from "@mui/material/Box";
 import SearchAppBar from "../component/Banner";
 import InBlogTitle from "../component/InBlogTitle";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { InlineMath, BlockMath } from "react-katex";
-import RemarkMathPlugin from "remark-math";
-import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
-const config = {
-  loader: { load: ["input/asciimath"] },
-};
+
 const StyledTable = styled.table`
   border-collapse: collapse;
   width: 100%;
@@ -48,7 +43,7 @@ const StyledImage = styled.img`
   height: auto;
 `;
 
-export default function TestPage() {
+export default function ArticlePage() {
   const [markdownContent, setMarkdownContent] = useState("");
   const mathJaxConfig = {
     tex: {
@@ -64,10 +59,6 @@ export default function TestPage() {
       .then((response) => response.text())
       .then((text) => setMarkdownContent(text));
   }, []);
-  const renderers = {
-    inlineMath: ({ value }: { value: string }) => <InlineMath math={value} />,
-    math: ({ value }: { value: string }) => <BlockMath math={value} />,
-  };
   const theme = createTheme({
     palette: {
       primary: {
@@ -92,7 +83,7 @@ export default function TestPage() {
             top: 0,
             left: 0,
             right: 0,
-            zIndex: 9999,
+            zIndex: 99,
           }}>
           <SearchAppBar />
         </div>

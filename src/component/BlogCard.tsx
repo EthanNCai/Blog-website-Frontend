@@ -10,9 +10,7 @@ export default function BlogCard(blogProps: BlogProps) {
   const [isEx, setEX] = React.useState(false);
 
   return (
-    <Paper
-      elevation={4}
-      sx={{ overflow: "auto", maxWidth: "95%", paddingBottom: "10px" }}>
+    <Paper elevation={4} sx={{ overflow: "auto", maxWidth: "95%" }}>
       <Stack direction={"column"} sx={{ justifyContent: "in-between" }}>
         <Stack
           sx={{ padding: "10px", justifyContent: "in-between" }}
@@ -29,7 +27,7 @@ export default function BlogCard(blogProps: BlogProps) {
                 boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.3)",
               }}>
               <img
-                src={blogProps.avatarUrl}
+                src={`http://localhost:8000/blog/blog-avatar/${blogProps.blog_id.toString()}/`}
                 alt="Loading"
                 style={{
                   width: "100%",
@@ -49,7 +47,7 @@ export default function BlogCard(blogProps: BlogProps) {
                 whiteSpace: "normal",
                 wordBreak: "break-all",
               }}>
-              {blogProps.title}
+              {blogProps.blog_name}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Grow
@@ -67,7 +65,7 @@ export default function BlogCard(blogProps: BlogProps) {
                     wordBreak: "break-all",
                   }}
                   variant="body2">
-                  {isEx ? blogProps.detail : null}
+                  {isEx ? blogProps.blog_description : null}
                 </Typography>
               </Grow>
             </Box>
@@ -75,9 +73,9 @@ export default function BlogCard(blogProps: BlogProps) {
               <BlogCardInteract
                 isEX={isEx}
                 setEX={setEX}
-                viewers={blogProps.viewer}
-                date={blogProps.date}
-                blogID={blogProps.blogId}
+                viewers={blogProps.blog_reads.toString()}
+                date={blogProps.blog_date}
+                blogID={blogProps.blog_id.toString()}
               />
             </Box>
           </Stack>
@@ -86,9 +84,9 @@ export default function BlogCard(blogProps: BlogProps) {
           <BlogCardInteract
             isEX={isEx}
             setEX={setEX}
-            viewers={blogProps.viewer}
-            date={blogProps.date}
-            blogID={blogProps.blogId}
+            viewers={blogProps.blog_reads.toString()}
+            date={blogProps.blog_date}
+            blogID={blogProps.blog_id.toString()}
           />
         </Box>
       </Stack>
