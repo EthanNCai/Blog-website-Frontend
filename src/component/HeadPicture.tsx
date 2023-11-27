@@ -4,7 +4,7 @@ export default function Headpicture() {
     <Box
       sx={{
         overflow: "hidden",
-        maxHeight: "30vh",
+        maxHeight: "25vh",
       }}>
       <img
         src="rt.webp"
