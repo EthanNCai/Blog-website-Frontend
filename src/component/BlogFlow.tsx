@@ -6,14 +6,33 @@ import { BlogProps } from "../objs/blogProps";
 import { Search } from "@mui/icons-material";
 export default function IntroCard() {
   const [blogData, setBlogData] = useState<BlogProps[]>([]);
+  const [textFieldValue, setTextFieldValue] = useState<string>("");
+
+  const handleTextFieldChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setTextFieldValue(event.target.value);
+  };
 
   useEffect(() => {
-    fetchBlogData();
+    initial_blogflow_fetching();
   }, []);
 
-  const fetchBlogData = async () => {
+  const initial_blogflow_fetching = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/blog/blogFlow");
+      const response = await fetch("http://127.0.0.1:8000/blog/blog_flow");
+      const data = await response.json();
+      setBlogData(data);
+    } catch (error) {
+      console.error("Error fetching blog data:", error);
+    }
+  };
+
+  const fetching_blogflow_by_key = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/blog/blog_flow_by_keyword/${textFieldValue}/`
+      );
       const data = await response.json();
       setBlogData(data);
     } catch (error) {
@@ -41,6 +60,8 @@ export default function IntroCard() {
             id="filled-basic"
             label="search for blogs"
             variant="outlined"
+            value={textFieldValue}
+            onChange={handleTextFieldChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -55,7 +76,11 @@ export default function IntroCard() {
             }}
           />
         </Paper>
-        <Button variant="contained" sx={{ maxWidth: "50px" }} color="secondary">
+        <Button
+          variant="contained"
+          sx={{ maxWidth: "50px" }}
+          color="secondary"
+          onClick={fetching_blogflow_by_key}>
           <Search />
         </Button>
       </Box>

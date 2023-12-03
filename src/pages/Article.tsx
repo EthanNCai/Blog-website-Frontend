@@ -45,9 +45,13 @@ const StyledImage = styled.img`
 `;
 
 export default function ArticlePage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
   const [markdownContent, setMarkdownContent] = useState("");
   const [blogData, setBlogData] = useState<BlogProps>({} as BlogProps);
   const [isLoading, setIsLoading] = useState(true);
+  const [is_liked, set_is_liked] = useState<boolean>(false);
+  const [is_hated, set_is_hated] = useState<boolean>(false);
   const mathJaxConfig = {
     tex: {
       inlineMath: [
@@ -56,20 +60,65 @@ export default function ArticlePage() {
       ],
     },
   };
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
 
+  /*
+    path('blog_likes_increase/<int:id>/', views.blog_likes_increase, name='blog_likes_increase'),
+    path('blog_likes_decrease/<int:id>/', views.blog_likes_decrease, name='blog_likes_decrease'),
+    path('blog_hates_increase/<int:id>/', views.blog_hates_increase, name='blog_hates_increase'),
+    path('blog_hates_decrease/<int:id>/', views.blog_hates_decrease, name='blog_hates_decrease'),
+
+  */
+  const handle_like = async () => {
+    if (is_liked) {
+      fetch(`http://localhost:8000/blog/blog_likes_decrease/${id}/`);
+      set_is_liked(false);
+      setBlogData((prevData) => ({
+        ...prevData,
+        blog_likes: prevData.blog_likes - 1,
+      }));
+    } else {
+      fetch(`http://localhost:8000/blog/blog_likes_increase/${id}/`);
+      set_is_liked(true);
+      setBlogData((prevData) => ({
+        ...prevData,
+        blog_likes: prevData.blog_likes + 1,
+      }));
+    }
+  };
+  const handle_hate = async () => {
+    if (is_hated) {
+      fetch(`http://localhost:8000/blog/blog_hates_decrease/${id}/`);
+      set_is_hated(false);
+      setBlogData((prevData) => ({
+        ...prevData,
+        blog_hates: prevData.blog_hates - 1,
+      }));
+    } else {
+      fetch(`http://localhost:8000/blog/blog_hates_increase/${id}/`);
+      set_is_hated(true);
+      setBlogData((prevData) => ({
+        ...prevData,
+        blog_hates: prevData.blog_hates + 1,
+      }));
+    }
+  };
+  const acquire_article = async () => {
     fetch(`http://localhost:8000/blog/blog-article/${id}/`)
       .then((response) => response.text())
       .then((text) => setMarkdownContent(text))
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
-
+  };
+  const acquire_article_info = async () => {
     fetch(`http://localhost:8000/blog/blog_find_id/${id}/`)
       .then((response) => response.json())
       .then((data) => setBlogData(data))
       .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    acquire_article();
+    acquire_article_info();
   }, []);
 
   const theme = createTheme({
@@ -101,10 +150,14 @@ export default function ArticlePage() {
           <SearchAppBar />
         </div>
         <Container maxWidth="md" sx={{ padding: "20px", marginTop: "66px" }}>
-          <InBlogTitle blogProps={blogData} />
+          <InBlogTitle
+            blogProps={blogData}
+            handle_hate={handle_hate}
+            handle_like={handle_like}
+          />
           <Box paddingTop={"20px"}>
             {isLoading ? (
-              <CircularProgress /> // 加载圆圈图标
+              <CircularProgress />
             ) : (
               <MathJaxContext config={mathJaxConfig}>
                 <MathJax>
