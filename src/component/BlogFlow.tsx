@@ -4,10 +4,11 @@ import { Button, Paper, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BlogProps } from "../objs/blogProps";
 import { Search } from "@mui/icons-material";
+import { Container, CircularProgress } from "@mui/material";
 export default function IntroCard() {
   const [blogData, setBlogData] = useState<BlogProps[]>([]);
   const [textFieldValue, setTextFieldValue] = useState<string>("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const handleTextFieldChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -19,22 +20,23 @@ export default function IntroCard() {
   }, []);
 
   const initial_blogflow_fetching = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/blog/blog_flow");
-      const data = await response.json();
-      setBlogData(data);
-    } catch (error) {
-      console.error("Error fetching blog data:", error);
-    }
+    fetch("http://chickenyards.com/api/blog/blog_flow")
+      .then((response) => response.json())
+      .then((json_file) => setBlogData(json_file))
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
   };
 
   const fetching_blogflow_by_key = async () => {
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/blog/blog_flow_by_keyword/${textFieldValue}/`
-      );
-      const data = await response.json();
-      setBlogData(data);
+      setIsLoading(true);
+      fetch(
+        `http://chickenyards.com/api/blog/blog_flow_by_keyword/${textFieldValue}/`
+      )
+        .then((response) => response.json())
+        .then((json_file) => setBlogData(json_file))
+        .catch((error) => console.log(error))
+        .finally(() => setIsLoading(false));
     } catch (error) {
       console.error("Error fetching blog data:", error);
     }
@@ -58,7 +60,7 @@ export default function IntroCard() {
         <Paper elevation={4}>
           <TextField
             id="filled-basic"
-            label="search for blogs"
+            label="搜索 search "
             variant="outlined"
             value={textFieldValue}
             onChange={handleTextFieldChange}
@@ -98,19 +100,25 @@ export default function IntroCard() {
           },
           padding: "8px",
         }}>
-        {blogData.map((blog) => (
-          <BlogCard
-            key={blog.blog_id}
-            blog_id={blog.blog_id}
-            blog_name={blog.blog_name}
-            blog_likes={blog.blog_likes}
-            blog_hates={blog.blog_hates}
-            blog_date={blog.blog_date}
-            blog_category={blog.blog_category}
-            blog_description={blog.blog_description}
-            blog_reads={blog.blog_reads}
-          />
-        ))}
+        {isLoading ? (
+          <Container>
+            <CircularProgress sx={{ maxBlockSize: "60%" }} color="success" />
+          </Container>
+        ) : (
+          blogData.map((blog) => (
+            <BlogCard
+              key={blog.blog_id}
+              blog_id={blog.blog_id}
+              blog_name={blog.blog_name}
+              blog_likes={blog.blog_likes}
+              blog_hates={blog.blog_hates}
+              blog_date={blog.blog_date}
+              blog_category={blog.blog_category}
+              blog_description={blog.blog_description}
+              blog_reads={blog.blog_reads}
+            />
+          ))
+        )}
       </Box>
     </>
   );

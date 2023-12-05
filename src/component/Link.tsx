@@ -17,7 +17,7 @@ export default function Link() {
               sx={{
                 fontFamily: "JBFont",
               }}>
-              {"Hello"}
+              {"你好 Hello"}
             </Typography>
           </Stack>
         </Stack>

@@ -2,11 +2,14 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { Visibility, ThumbDown, ThumbUp, LockClock } from "@mui/icons-material";
 import BlogProps from "../objs/blogProps";
+import { BooleanLiteral } from "typescript";
 
 interface InBlogTitleProps {
   blogProps: BlogProps;
   handle_like: () => Promise<void>;
   handle_hate: () => Promise<void>;
+  is_liked: boolean;
+  is_hated: boolean;
 }
 
 const icons = [<Visibility />, <ThumbDown />, <ThumbUp />, <LockClock />];
@@ -36,7 +39,7 @@ export default function InBlogTitle(props: InBlogTitleProps) {
         label={blogProps.blog_hates}
         sx={{ fontFamily: "JBFont" }}
         size="small"
-        color="error"
+        color={props.is_hated ? "error" : "primary"}
         style={{ marginInline: "5px" }}
         onClick={() => {
           props.handle_hate();
@@ -47,7 +50,7 @@ export default function InBlogTitle(props: InBlogTitleProps) {
         label={blogProps.blog_likes}
         sx={{ fontFamily: "JBFont" }}
         size="small"
-        color="success"
+        color={props.is_liked ? "success" : "primary"}
         style={{ marginInline: "5px" }}
         onClick={() => {
           props.handle_like();

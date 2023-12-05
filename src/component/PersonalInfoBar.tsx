@@ -21,16 +21,21 @@ export default function PersonalInfoBar() {
               sx={{
                 fontFamily: "JBFont",
               }}>
-              Site info.
+              站點信息 Site info.
             </Typography>
           </Stack>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction={"row"} spacing={"15px"}>
+          <Stack direction={"row"} spacing={"15px"} padding={"8px"}>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
+              這是一個博客網站，主要包括關於我的個人經歷以及在計算機科學領域的探索的文章。網站於
+              2023 年 12 月 5 日完成。網站使用的技術棧包括 React、Nginx、Django
+              和 MySQL。
+              <br /> <br />
+              This is a blog website that primarily includes posts about my
+              personal experiences and explorations in computer science. It was
+              completed on December 5th, 2023. The technology stack used for
+              this website consists of React, Nginx, Django, and MySQL.
             </Typography>
           </Stack>
         </AccordionDetails>
@@ -47,7 +52,7 @@ export default function PersonalInfoBar() {
               sx={{
                 fontFamily: "JBFont",
               }}>
-              Establisher info.
+              作者信息 Establisher info.
             </Typography>
           </Stack>
         </AccordionSummary>
@@ -80,12 +85,19 @@ export default function PersonalInfoBar() {
                 sx={{
                   fontFamily: "JBFont",
                 }}>
-                Junzhi Cai
+                蔡俊志 Junzhi Cai
               </Typography>
-              <Typography variant="body2">
-                B.S. at JiMei University
+              <Typography variant="body2" padding={"8px"}>
+                集美大學本科在讀
+                <br />
+                計算機科學
+                <br />+ 在我的GitHub主頁查看更多細節
+                <br />
+                <br />
+                Undergraduate student at JiMei University
                 <br />
                 Computer Science
+                <br />+ more details on my GitHub page
               </Typography>
             </Stack>
           </Stack>

@@ -27,7 +27,7 @@ export default function BlogCard(blogProps: BlogProps) {
                 boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.3)",
               }}>
               <img
-                src={`http://localhost:8000/blog/blog-avatar/${blogProps.blog_id.toString()}/`}
+                src={`http://chickenyards.com/api/blog/blog-avatar/${blogProps.blog_id.toString()}/`}
                 alt="Loading"
                 style={{
                   width: "100%",

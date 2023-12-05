@@ -2,7 +2,7 @@ import Banner from "./component/Banner";
 import { Container, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { grey, orange } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import BlogFlow from "./component/BlogFlow";
 
 import IntroBar from "./component/IntroBar";
@@ -34,7 +34,7 @@ function App() {
           }}>
           <Banner />
         </div>
-        <Container maxWidth="md" sx={{ padding: "0px", marginTop: "66px" }}>
+        <Container maxWidth="lg" sx={{ padding: "0px", marginTop: "66px" }}>
           <IntroBar />
 
           <BlogFlow />

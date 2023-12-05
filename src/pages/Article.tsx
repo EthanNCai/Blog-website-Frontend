@@ -62,6 +62,7 @@ export default function ArticlePage() {
   };
 
   /*
+    django url:
     path('blog_likes_increase/<int:id>/', views.blog_likes_increase, name='blog_likes_increase'),
     path('blog_likes_decrease/<int:id>/', views.blog_likes_decrease, name='blog_likes_decrease'),
     path('blog_hates_increase/<int:id>/', views.blog_hates_increase, name='blog_hates_increase'),
@@ -70,14 +71,14 @@ export default function ArticlePage() {
   */
   const handle_like = async () => {
     if (is_liked) {
-      fetch(`http://localhost:8000/blog/blog_likes_decrease/${id}/`);
+      fetch(`http://chickenyards.com/api/blog/blog_likes_decrease/${id}/`);
       set_is_liked(false);
       setBlogData((prevData) => ({
         ...prevData,
         blog_likes: prevData.blog_likes - 1,
       }));
     } else {
-      fetch(`http://localhost:8000/blog/blog_likes_increase/${id}/`);
+      fetch(`http://chickenyards.com/api/blog/blog_likes_increase/${id}/`);
       set_is_liked(true);
       setBlogData((prevData) => ({
         ...prevData,
@@ -87,14 +88,14 @@ export default function ArticlePage() {
   };
   const handle_hate = async () => {
     if (is_hated) {
-      fetch(`http://localhost:8000/blog/blog_hates_decrease/${id}/`);
+      fetch(`http://chickenyards.com/api/blog/blog_hates_decrease/${id}/`);
       set_is_hated(false);
       setBlogData((prevData) => ({
         ...prevData,
         blog_hates: prevData.blog_hates - 1,
       }));
     } else {
-      fetch(`http://localhost:8000/blog/blog_hates_increase/${id}/`);
+      fetch(`http://chickenyards.com/api/blog/blog_hates_increase/${id}/`);
       set_is_hated(true);
       setBlogData((prevData) => ({
         ...prevData,
@@ -103,14 +104,14 @@ export default function ArticlePage() {
     }
   };
   const acquire_article = async () => {
-    fetch(`http://localhost:8000/blog/blog-article/${id}/`)
+    fetch(`http://chickenyards.com/api/blog/blog-article/${id}/`)
       .then((response) => response.text())
       .then((text) => setMarkdownContent(text))
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
   };
   const acquire_article_info = async () => {
-    fetch(`http://localhost:8000/blog/blog_find_id/${id}/`)
+    fetch(`http://chickenyards.com/api/blog/blog_find_id/${id}/`)
       .then((response) => response.json())
       .then((data) => setBlogData(data))
       .catch((error) => console.log(error));
@@ -136,7 +137,7 @@ export default function ArticlePage() {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Lambo</title>
+        <title>{`Blog - ${blogData.blog_name}`}</title>
       </Helmet>
       <ThemeProvider theme={theme}>
         <div
@@ -154,10 +155,12 @@ export default function ArticlePage() {
             blogProps={blogData}
             handle_hate={handle_hate}
             handle_like={handle_like}
+            is_liked={is_liked}
+            is_hated={is_hated}
           />
           <Box paddingTop={"20px"}>
             {isLoading ? (
-              <CircularProgress />
+              <CircularProgress color="success" />
             ) : (
               <MathJaxContext config={mathJaxConfig}>
                 <MathJax>
