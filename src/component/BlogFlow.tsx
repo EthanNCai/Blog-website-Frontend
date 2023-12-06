@@ -20,7 +20,7 @@ export default function IntroCard() {
   }, []);
 
   const initial_blogflow_fetching = async () => {
-    fetch("http://chickenyards.com/api/blog/blog_flow")
+    fetch("https://chickenyards.com/api/blog/blog_flow")
       .then((response) => response.json())
       .then((json_file) => setBlogData(json_file))
       .catch((error) => console.log(error))
@@ -31,7 +31,7 @@ export default function IntroCard() {
     try {
       setIsLoading(true);
       fetch(
-        `http://chickenyards.com/api/blog/blog_flow_by_keyword/${textFieldValue}/`
+        `https://chickenyards.com/api/blog/blog_flow_by_keyword/${textFieldValue}/`
       )
         .then((response) => response.json())
         .then((json_file) => setBlogData(json_file))
